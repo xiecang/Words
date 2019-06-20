@@ -1,11 +1,11 @@
 class Editor {
     constructor() {
-        this.chars =  []
-        this.max_char_line = 32
-        this.char = null
-        this.lineNumber = 0
+        this.chars = []
+        this.max_char_num_line = 32
+        this.line_num = 0
         this.char_current_line = 0
         this.current_char = null
+
         this.current_char_mat = [
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -24,19 +24,36 @@ class Editor {
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
         ]
+
+        this.bindEvents()
     }
 
     static new() {
         return new this()
     }
 
+    bindEvents() {
+        var o = this
+        window.addEventListener("keydown", function (event) {
+            log(key)
+            for (var key in mats) {
+                if (event.key === key) {
+                    o.type(key)
+                } else if (event.key === 'Backspace') {
+                    o.deleteChar()
+                }
+            }
+        })
+    }
+
+
     createLine() {
-        var l = Line.new(this.lineNumber)
+        var l = Line.new(this.line_num)
         return l
     }
 
     createChractor() {
-        var c = Charactor.new(this.char_current_line, this.lineNumber+1, this.current_char_mat)
+        var c = Charactor.new(this.char_current_line, this.line_num + 1, this.current_char_mat)
         return c
     }
 
@@ -44,28 +61,23 @@ class Editor {
         var o = this
 
         o.current_char = char
+        this.current_char_mat = mats[char]
+        var current_line = getElemById(myconcat("line_num-", (o.line_num + 1).toString()))
 
-        if(char == 'J') {
-            this.current_char_mat = printable_mats["J"]
-        }
-
-        var current_line = getElemById( myconcat("lineNumber-", (o.lineNumber+1).toString() ) )
-
-        if(o.char_current_line == o.max_char_line){
+        if (o.char_current_line === o.max_char_num_line) {
             o.char_current_line = 0
-            o.lineNumber++
-
+            o.line_num++
             current_line = o.createLine()
         }
         // update state
-        o.char++
         o.char_current_line++
-
+        //
         var charactor = o.createChractor()
         o.chars.push(charactor)
     }
 
     deleteChar() {
         log("delete")
+        var o = this
     }
 }

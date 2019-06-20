@@ -21,11 +21,10 @@ class FontMaker {
         this.panel = null
         this.langthX = 0
         this.langthY = 0
-
         //
         this.langthX = this.init_mat.length
         this.langthY = this.init_mat[0].length
-        this.panel = Charactor(1, 1, this.init_mat)
+        this.panel = Charactor.new(1, 1, this.init_mat)
         this.bindClickEventToEachPx()
     }
 
@@ -33,6 +32,7 @@ class FontMaker {
         return new this()
     }
 
+    // 显示表格边框, 放大表格
     bindClickEventToEachPx() {
         var o = this
 
@@ -68,9 +68,7 @@ class FontMaker {
     outputMat = function () {
         var o = this
 
-        for (var i = 0; i < o.langthX; i++) {
-            log(o.panel.mat[i][0] + "," + o.panel.mat[i][1] + "," + o.panel.mat[i][2] + "," + o.panel.mat[i][3] + "," + o.panel.mat[i][4] + "," + o.panel.mat[i][5] + "," + o.panel.mat[i][6] + "," + o.panel.mat[i][7])
-        }
+        log(o.panel.mat)
     }
 
     togglePxState(i, j) {
