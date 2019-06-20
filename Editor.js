@@ -35,7 +35,6 @@ class Editor {
     bindEvents() {
         var o = this
         window.addEventListener("keydown", function (event) {
-            log(key)
             for (var key in mats) {
                 if (event.key === key) {
                     o.type(key)
@@ -44,6 +43,16 @@ class Editor {
                 }
             }
         })
+        // window.addEventListener("mousedown", function(event){
+        //     var cs = o.chars
+        //     var i
+        //     for (i in cs) {
+        //         cs[i].toggleSelectedState()
+        //     }
+        // })
+        // window.addEventListener("mouseup", function(event){
+        //
+        // })
     }
 
 
@@ -61,8 +70,10 @@ class Editor {
         var o = this
 
         o.current_char = char
-        this.current_char_mat = mats[char]
-        var current_line = getElemById(myconcat("line_num-", (o.line_num + 1).toString()))
+        // this.current_char_mat = mats[char]
+        // var current_line = getElemById(myconcat("line_num-", (o.line_num + 1).toString()))
+        o.current_char_mat = myMatCopy(mats[char])
+        var current_line = getElemById(myconcat("line_num-", (o.line_num+1).toString()))
 
         if (o.char_current_line === o.max_char_num_line) {
             o.char_current_line = 0

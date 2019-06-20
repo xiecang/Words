@@ -20,3 +20,15 @@ var enableDrawMatMode = function (a) {
         var editor = Editor.new()
     }
 }
+
+var myMatCopy = function (mat) {
+    var mat_copy = []
+
+    var r
+    for (r in mat) {
+        var row = mat[r].concat()
+        mat_copy.push(row)
+    }
+
+    return mat_copy
+}
