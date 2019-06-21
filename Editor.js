@@ -1,11 +1,15 @@
 class Editor {
     constructor() {
         this.lines = []
-        this.bindEvents()
+        this.init()
     }
 
-    static new() {
-        return new this()
+    static new(...args) {
+        return new this(...args)
+    }
+
+    init() {
+        this.bindEvents()
     }
 
     bindEvents() {

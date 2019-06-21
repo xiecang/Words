@@ -24,12 +24,17 @@ class FontMaker {
         //
         this.langthX = this.init_mat.length
         this.langthY = this.init_mat[0].length
-        this.panel = Charactor.new(1, 1, this.init_mat)
-        this.bindClickEventToEachPx()
+        this.init()
     }
 
     static new() {
         return new this()
+    }
+
+    init() {
+        this.line = Line.new(1)
+        this.panel = Charactor.new(1, 1, this.init_mat, true)
+        this.bindClickEventToEachPx()
     }
 
     // 显示表格边框, 放大表格

@@ -11,14 +11,18 @@ class Charactor {
         this.px_h = 1
         this.px_w = 1
         this.selected = false
-
+        this.create_mode = create_mode
         //
-        this.setBoxStyle(create_mode)
-        this.drawFigure()
+        this.init()
     }
 
     static new(...args) {
         return new this(...args)
+    }
+
+    init() {
+        this.setBoxStyle(this.create_mode)
+        this.drawFigure()
     }
 
     setBoxStyle(create_mode) {
