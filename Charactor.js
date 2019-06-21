@@ -1,10 +1,10 @@
 class Charactor {
-    constructor(char_current_line, lineNumber, content_mat, create_mode = false) {
+    constructor(char_current_line, line_serial, content_mat, create_mode = false) {
         this.fugure = null
         this.mat = content_mat
         this.char_id = null
         this.char_current_line = char_current_line
-        this.lineNumber = lineNumber
+        this.line_serial = line_serial
         this.style_black = "background-color: black;"
         this.style_white = "background-color: white;"
         this.style_selected = "background-color: blue;"
@@ -36,13 +36,13 @@ class Charactor {
         var o = this
 
         o.figure = document.createElement("table")
-        o.char_id = myconcat((o.lineNumber).toString(), "-", "charactor-", (o.char_current_line).toString())
+        o.char_id = myconcat((o.line_serial).toString(), "-", "charactor-", (o.char_current_line).toString())
         o.figure.setAttribute('id', o.char_id)
         o.figure.setAttribute('cellspacing', '0')
 
         for (var i = 0; i < o.mat.length; i++) {
             var tr = document.createElement("tr")
-            var row_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-row-", (i + 1).toString())
+            var row_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-row-", (i + 1).toString())
             tr.setAttribute('id', row_id)
             o.figure.appendChild(tr)
 
@@ -50,7 +50,7 @@ class Charactor {
                 var td = document.createElement("td")
 
                 // 拼接每个像素的名字
-                var px_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
+                var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
                 td.setAttribute('id', px_id)
                 td.setAttribute('height', o.px_h)
                 td.setAttribute('width', o.px_w)
@@ -63,14 +63,16 @@ class Charactor {
             }
         }
 
-        var current_line = getElemById(myconcat("line-", o.lineNumber.toString()))
+        var line_id = myconcat("line-", (o.line_serial).toString())
+        log(line_id)
+        var current_line = getElemById(line_id)
         current_line.appendChild(o.figure)
     }
 
     togglePxState(i, j) {
         var o = this
 
-        var px_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
+        var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
         var px = getElemById(px_id)
 
         var blank = 0
@@ -92,7 +94,7 @@ class Charactor {
 
                 var blank = 0
                 var selected = 2
-                var px_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
+                var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
                 var px = getElemById(px_id)
 
                 if (o.mat[i][j] === blank) {
@@ -116,7 +118,7 @@ class Charactor {
 
                 var blank = 0
                 var selected = 2
-                var px_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
+                var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
                 var px = getElemById(px_id)
 
                 if (o.mat[i][j] === blank) {
@@ -135,7 +137,7 @@ class Charactor {
 
                 var blank = 0
                 var selected = 2
-                var px_id = myconcat((o.lineNumber).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
+                var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
                 var px = getElemById(px_id)
 
                 if (o.mat[i][j] === selected) {

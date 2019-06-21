@@ -1,12 +1,11 @@
 class Editor {
     constructor() {
-        this.chars = []
-        this.max_char_num_line = 32
-        this.line_num = 0
-        this.char_current_line = 0
-        this.current_char = null
-
-        this.current_char_mat = [
+        this.chars =  []
+        this.lines = []
+        this.max_char_one_line = 32
+        this.num_char_current_line = 0
+        this.last_char = null
+        this.last_char_mat = [
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0],
@@ -57,31 +56,34 @@ class Editor {
 
 
     createLine() {
-        var l = Line.new(this.line_num)
+        var o = this
+        var l = Line.new(o.lines.length + 1)
+        o.lines.push(l)
         return l
     }
 
     createChractor() {
-        var c = Charactor.new(this.char_current_line, this.line_num + 1, this.current_char_mat)
+        var c = Charactor.new(this.num_char_current_line, this.lines.length, this.last_char_mat)
         return c
     }
 
     type(char) {
         var o = this
 
-        o.current_char = char
-        // this.current_char_mat = mats[char]
-        // var current_line = getElemById(myconcat("line_num-", (o.line_num + 1).toString()))
-        o.current_char_mat = myMatCopy(mats[char])
-        var current_line = getElemById(myconcat("line_num-", (o.line_num+1).toString()))
+        o.last_char = char
+        o.last_char_mat = myMatCopy(mats[char])
 
-        if (o.char_current_line === o.max_char_num_line) {
-            o.char_current_line = 0
-            o.line_num++
+        var ls = o.lines
+        var current_line = ls[ls.length - 1]
+
+        var on = o.num_char_current_line
+        if(on === 0 || on === o.max_char_one_line){
+            o.num_char_current_line = 0
             current_line = o.createLine()
         }
+
         // update state
-        o.char_current_line++
+        o.num_char_current_line++
         //
         var charactor = o.createChractor()
         o.chars.push(charactor)
