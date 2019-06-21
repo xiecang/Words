@@ -1,8 +1,8 @@
 class Charactor {
     constructor(char_current_line, line_serial, content_mat, create_mode = false) {
-        this.fugure = null
+        this.figure = null
         this.mat = content_mat
-        this.char_id = null
+        this.DOM_id = null
         this.char_current_line = char_current_line
         this.line_serial = line_serial
         this.style_black = "background-color: black;"
@@ -40,8 +40,8 @@ class Charactor {
         var o = this
 
         o.figure = document.createElement("table")
-        o.char_id = myconcat((o.line_serial).toString(), "-", "charactor-", (o.char_current_line).toString())
-        o.figure.setAttribute('id', o.char_id)
+        o.DOM_id = myconcat((o.line_serial).toString(), "-", "charactor-", (o.char_current_line).toString())
+        o.figure.setAttribute('id', o.DOM_id)
         o.figure.setAttribute('cellspacing', '0')
 
         for (var i = 0; i < o.mat.length; i++) {

@@ -1,6 +1,7 @@
 class Editor {
     constructor() {
         this.lines = []
+        this.DOM_id = "screen"
         this.init()
     }
 
@@ -10,17 +11,26 @@ class Editor {
 
     init() {
         this.bindEvents()
+        this.drawScreen()
+    }
+
+    drawScreen() {
+        var screen = document.createElement("div")
+        screen.setAttribute('id', this.DOM_id);
+        screen.setAttribute('style', "border: solid;");
+        document.body.appendChild(screen);
     }
 
     bindEvents() {
         var o = this
         window.addEventListener("keydown", function (event) {
-            for (var key in mats) {
-                if (event.key === key) {
-                    o.type(key)
-                } else if (event.key === 'Backspace') {
-                    o.deleteChar()
-                }
+            var k = event.key
+            if (k in mats) {
+                o.type(k)
+            } else if (k === 'Backspace') {
+                o.delete()
+            } else {
+                log("key not supported previously.")
             }
         })
         window.addEventListener("mousedown", function (event) {
@@ -65,8 +75,45 @@ class Editor {
         cl.addChar(char)
     }
 
-    deleteChar() {
-        log("delete")
+    delete() {
         var o = this
+
+        var ls = o.lines
+        var current_line = ls[ls.length - 1]
+        var cl = current_line
+
+        if (ls.length === 0) {
+            log("全空, 无法再删除")
+        } else if (ls.length !== 0) {
+            o.deleteCharDirectly(cl, ls)
+        }
+    }
+
+    deleteCharDirectly(current_line, lines) {
+        var o = this
+        var cl = current_line
+        var ls = lines
+        cl.deleteChar()
+        var cln = cl.num_char_current_line
+
+        if (cln === 0) {
+            log("行空")
+            ls.pop()
+            o.removeLine(cl)
+
+            if (ls.length !== 0) {
+                cl = ls[ls.length - 1]
+                cl.num_char_current_line = 32
+            } else if (ls.length === 0) {
+                log("全空")
+            }
+        } else if (cln !== 0) {
+            log("行未空")
+        }
+    }
+
+    removeLine(cl) {
+        var cl_DOM = getElemById(cl.DOM_id)
+        getElemById(this.DOM_id).removeChild(cl_DOM)
     }
 }

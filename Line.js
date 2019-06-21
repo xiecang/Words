@@ -6,24 +6,33 @@ class Line {
         this.num_char_current_line = 0
         this.last_char = null
         this.last_char_mat = null
+        this.DOM_id = myconcat("line-", (this.serial_line).toString())
 
-        this.drawLine()
+        this.init()
     }
 
     static new(...args) {
         return new this(...args)
     }
 
+    init() {
+        this.drawLine()
+    }
+
     drawLine() {
         var l = document.createElement("div")
-        l.setAttribute('id', myconcat("line-", (this.serial_line).toString()));
+        l.setAttribute('id', this.DOM_id);
         l.setAttribute('style', "display: flex;");
         var screen = getElemById("screen")
         screen.appendChild(l)
     }
 
     deleteChar() {
-        log("delete")
+        var t = this
+        t.num_char_current_line--
+        var tcs = t.chars
+        var c = tcs.pop()
+        getElemById(t.DOM_id).removeChild(getElemById(c.DOM_id))
     }
 
     addChar(char) {

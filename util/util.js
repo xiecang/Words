@@ -2,9 +2,13 @@ var log = console.log.bind(console)
 
 var myconcat = function (...args) {
     var res = new String()
-    var i = 0
+    var i
     for (i in args) {
-        res = res.concat(args[i])
+        var arg = args[i]
+        if (typeof arg != "string"){
+            arg = arg.toString()
+        }
+        res = res.concat(arg)
     }
     return res
 }
