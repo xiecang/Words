@@ -1,29 +1,6 @@
 class Editor {
     constructor() {
-        this.chars =  []
         this.lines = []
-        this.max_char_one_line = 32
-        this.num_char_current_line = 0
-        this.last_char = null
-        this.last_char_mat = [
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0],
-        ]
-
         this.bindEvents()
     }
 
@@ -42,13 +19,16 @@ class Editor {
                 }
             }
         })
-        // window.addEventListener("mousedown", function(event){
-        //     var cs = o.chars
-        //     var i
-        //     for (i in cs) {
-        //         cs[i].toggleSelectedState()
-        //     }
-        // })
+        window.addEventListener("mousedown", function (event) {
+            var os = o.lines
+            var i
+            for (i in os) {
+                var osc = os[i].chars
+                var k
+                for (k in osc)
+                    osc[k].toggleSelectedState()
+            }
+        })
         // window.addEventListener("mouseup", function(event){
         //
         // })
@@ -70,23 +50,15 @@ class Editor {
     type(char) {
         var o = this
 
-        o.last_char = char
-        o.last_char_mat = myMatCopy(mats[char])
-
         var ls = o.lines
         var current_line = ls[ls.length - 1]
+        var cl = current_line
 
-        var on = o.num_char_current_line
-        if(on === 0 || on === o.max_char_one_line){
-            o.num_char_current_line = 0
-            current_line = o.createLine()
+        if (ls.length === 0 || cl.num_char_current_line === cl.max_char_one_line) {
+            cl = o.createLine()
         }
 
-        // update state
-        o.num_char_current_line++
-        //
-        var charactor = o.createChractor()
-        o.chars.push(charactor)
+        cl.addChar(char)
     }
 
     deleteChar() {

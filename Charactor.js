@@ -86,30 +86,6 @@ class Charactor {
         }
     }
 
-    toggleSelectedState() {
-        var o = this
-
-        for (var i = 0; i < o.mat.length; i++) {
-            for (var j = 0; j < o.mat[0].length; j++) {
-
-                var blank = 0
-                var selected = 2
-                var px_id = myconcat((o.line_serial).toString(), "-", (o.char_current_line).toString(), "-px-", (i + 1).toString(), "-", (j + 1).toString())
-                var px = getElemById(px_id)
-
-                if (o.mat[i][j] === blank) {
-                    o.selected = true
-                    o.mat[i][j] = selected
-                    px.setAttribute('style', o.style_selected)
-                } else if (o.mat[i][j] === selected) {
-                    o.selected = false
-                    o.mat[i][j] = blank
-                    px.setAttribute('style', o.style_white)
-                }
-            }
-        }
-    }
-
     getSelected() {
         var o = this
         o.selected = true
